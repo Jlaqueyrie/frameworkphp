@@ -23,16 +23,16 @@ class Database{
         //déclaration (dns)
 
         $dns = 'mysql:host='.$this->host.';
-                dbname='.$this->dbname;
+                dbname='.$this->dbName;
         $options = array(
             PDO::ATTR_PERSISTENT=>true,
-            PDO::ATTR_ERRMODE=>PDO::ATTR_ERRMODE_EXCEPTION);
+            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION);
 
 
         //créer la connection pdo 
 
         try{
-            $this->dbh = new PDO($dns, $this->user, $this->password, $options);
+            $this->dbh = new PDO($dns, $this->user, '', $options);
         }
         catch(PDOException $e){
             $this->error = $e ->getMessage();

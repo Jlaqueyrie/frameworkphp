@@ -4,6 +4,7 @@ class Pages extends Controller{
 
     public function __construct(){
         // printf('Page trouvé');
+        $this->postModel = $this->model('Post');
     }
 
     public function index(){
