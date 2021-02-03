@@ -6,3 +6,8 @@ define('APPROOT',dirname(dirname(__FILE__)));
 define('URLROOT','http://localhost:82/frameworkmvc');
 //titre du site
 define('SITENAME', 'frameworkmvc');
+//bdd
+define('DB_HOST', 'localhost');
+define('DB_NAME','frameworkphp');
+define('DB_USER', 'root');
+define('DB_PASSWORD','root');
