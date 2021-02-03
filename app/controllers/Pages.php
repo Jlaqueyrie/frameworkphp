@@ -4,14 +4,11 @@ class Pages extends Controller{
 
     public function __construct(){
         // printf('Page trouvé');
-        $this->postModel = $this->model('Post');
     }
 
     public function index(){
-        $posts = $this->postModel->getPosts();
 
-        $data = ['title'=>'bienvenue sur index',
-                'posts'=>$posts];
+        $data = ['title'=>'bienvenue sur index'];
 
         $this->view('pages\index',$data);
     }
