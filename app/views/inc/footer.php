@@ -1,7 +1,5 @@
 <!-- Footer-->
             </div>
-        </header>
-
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
