@@ -7,7 +7,7 @@ define('URLROOT','http://localhost/blogPOO/');
 //titre du site
 define('SITENAME', 'blog php POO');
 //bdd
-define('DB_HOST', 'votre nom de seveur');
+define('DB_HOST', 'localhost');
 define('DB_NAME','blogoo');
 define('DB_USER', 'root');
 define('DB_PASSWORD','');

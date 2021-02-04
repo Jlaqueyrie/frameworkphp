@@ -3,7 +3,7 @@
 class Users extends Controller{
     public function __construct()
     {
-        
+        $this->userModel = $this->model('User');
     }
     public function register(){
         //nettoyage donnée $_POST
@@ -32,6 +32,11 @@ class Users extends Controller{
             if(empty($data['email'])){
 
                 $data['err_email'] = "comptéter l'email";
+            }
+            else{
+                if($this->userModel -> findUserByEmail($data['email'])){
+                    $data['err_email'] = "adresse email déjà utilisé";
+                }
             }
             if(empty($data['password'])){
 
