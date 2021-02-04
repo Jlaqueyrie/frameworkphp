@@ -36,7 +36,7 @@ class Users extends Controller{
             elseif(strlen($data['password']) < 8){
                 $data['err_password'] = "password doit être supérieur à 8 caractères";
             }
-            if(empty($data['password'])){
+            if(empty($data['confirm_password'])){
 
                 $data['err_confirm_password'] = "confirmation password vide, merci de compéter";
 
@@ -61,7 +61,44 @@ class Users extends Controller{
         $this->view('users\register', $data);
     }
     public function login(){
-    //chargement de la vue
-        // $this->view('users\register', $data);
+        $_POST = filter_input_array(FILTER_SANITIZE_STRING);
+        //control si le formulaire a appelé la méthode post
+       if($_SERVER['REQUEST_METHOD'] == 'POST'){
+       //validation formulaire    
+           $data=[
+               'email'=>trim($_POST['f_u_email']),
+               'password'=>trim($_POST['f_u_password']),
+               'err_email'=>'',
+               'err_password'=> ''];
+
+            //validation champ vide
+            if(empty($data['email'])){
+
+                $data['err_email'] = "comptéter l'email";
+            }
+            if(empty($data['password'])){
+
+                $data['err_password'] = "password vide, merci de compéter";
+            }
+            //gestion des erreurs
+            if(empty($data['err_email'])&&empty($data['err_password'])){
+
+            }
+            else{
+                $this->view('users\login', $data);
+
+            }
+       } 
+       else{
+           //donnée formulaire
+           $data=[
+               'email'=>'',
+               'password'=> '',
+               'err_email'=>'',
+               'err_password'=> '',
+           ];
+        //charement de la vue
+            $this->view('users\login', $data);
+       }
     }
 }
