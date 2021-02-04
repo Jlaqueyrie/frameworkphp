@@ -19,6 +19,7 @@ class Controller{
             require_once '..\app\views\\'.$view.'.php';
         }
         else{
+            print('..\app\views\\'.$view.'.php');
             die("la vue n'existe pas");
         }
 
