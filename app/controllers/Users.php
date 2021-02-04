@@ -11,18 +11,20 @@ class Users extends Controller{
         //control si le formulaire a appelé la méthode post
        if($_SERVER['REQUEST_METHOD'] == 'POST'){
        //validation formulaire    
+                var_dump($_POST);
+               die('debug');
            $data=[
                'name' => trim($_POST['f_u_name']),
                'email'=>trim($_POST['f_u_email']),
                'password'=>trim($_POST['f_u_password']),
-               'confirm_password'=>trim($_POST['f_u_password']),
+               'confirm_password'=>trim($_POST['f_u_password_conf']),
                'err_name'=>'',
                'err_email'=>'',
                'err_password'=> '',
                'err_confirm_password'=>''];
 
             //validation champ vide
-            if(empty($data['nom'])){
+            if(empty($data['name'])){
                 $data['err_name'] = "compléter le nom";
             }
             if(empty($data['email'])){

@@ -6,19 +6,23 @@
 
             <form action="<?php echo URLROOT;?>users/register" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_name'])) ? 'is-invalid' :'';?>" name="f_u_name" id="f_reg_nom" aria-describedby="helpId" placeholder="Votre nom" required>
+                    <label>Votre nom<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_name'])) ? 'is-invalid' :'';?>" name="f_u_name" value="<?php echo $data['name']?>">
                     <span class="invalid-feedback"><?php echo $data['err_name']?></span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_email'])) ? 'is-invalid' :'';?>" name="f_u_email" id="f_reg_nom" aria-describedby="helpId" placeholder="Votre email" required>
+                    <label>Votre email<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_email'])) ? 'is-invalid' :'';?>" name="f_u_email" value="<?php echo $data['email']?>">
                     <span class="invalid-feedback"><?php echo $data['err_email']?></span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_password'])) ? 'is-invalid' :'';?>" name="f_u_password" id="f_reg_nom" aria-describedby="helpId" placeholder="entrez un mot de pass" required>
+                    <label>Votre mot de passe<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_password'])) ? 'is-invalid' :'';?>" name="f_u_password" value="<?php echo $data['password']?>">
                     <span class="invalid-feedback"><?php echo $data['err_password']?></span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_confirm_password'])) ? 'is-invalid' :'';?>" name="f_u_password_conf" id="f_reg_nom" aria-describedby="helpId" placeholder="confirmer votre mot de pass" required>
+                    <label>confirmer le mot de passe<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_confirm_password'])) ? 'is-invalid' :'';?>" name="f_u_password_conf" value="<?php echo $data['confirm_password']?>">
                     <span class="invalid-feedback"><?php echo $data['err_confirm_password']?></span>
                 </div>
                 <div class="row">
