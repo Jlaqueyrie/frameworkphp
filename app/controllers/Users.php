@@ -7,12 +7,14 @@ class Users extends Controller{
     }
     public function register(){
         //nettoyage donnée $_POST
-        $_POST = filter_input_array(FILTER_SANITIZE_STRING);
+        
         //control si le formulaire a appelé la méthode post
        if($_SERVER['REQUEST_METHOD'] == 'POST'){
        //validation formulaire    
-                var_dump($_POST);
-               die('debug');
+        // var_dump($_POST);
+        // die('debug');
+        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
            $data=[
                'name' => trim($_POST['f_u_name']),
                'email'=>trim($_POST['f_u_email']),
@@ -49,7 +51,16 @@ class Users extends Controller{
             }
             if(empty($data['err_name']) && empty($data['err_email']) &&empty($data['err_password'])&&empty($data['err_confirm_password'])){
                 //pas d'erreur après control
-
+                $data=[
+               'name'=>'',
+               'email'=>'',
+               'password'=> '',
+               'confirm_password'=>'',
+               'err_name'=>'',
+               'err_email'=>'',
+               'err_password'=> '',
+               'err_confirm_password'=>'',
+                ];
                 //chiffrage mdp et validation formulaire
             }
             else{

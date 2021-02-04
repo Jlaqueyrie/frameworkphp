@@ -4,7 +4,8 @@
         <div class="card card-body bg-light mt-5">
             <h1 class="text-center">Inscription</h1>
 
-            <form action="<?php echo URLROOT;?>users/register" method="post">
+            <form action="<?php echo URLROOT;?>users/register" method="POST">
+
                 <div class="form-group">
                     <label>Votre nom<sup>*</sup></label>
                     <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_name'])) ? 'is-invalid' :'';?>" name="f_u_name" value="<?php echo $data['name']?>">
