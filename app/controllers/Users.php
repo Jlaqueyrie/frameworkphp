@@ -67,6 +67,13 @@ class Users extends Controller{
                'err_confirm_password'=>'',
                 ];
                 //chiffrage mdp et validation formulaire
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                if($this->userModel->setUserDataInBdd($data)){
+                    redirect('users/login');
+                }
+                else{
+                    die('erreur');
+                }
             }
             else{
                 //affichage de la vue avec les erreurs

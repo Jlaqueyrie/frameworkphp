@@ -8,7 +8,28 @@ class User{
     public function __construct(){
         $this -> h_db  = new Database;
     }
-
+    //sauvegarde info utilsiateur en bdd
+    public function setUserDataInBdd($data){
+        //préparation de la requête
+        try{
+            $this->h_db->query('INSERT INTO users(name,soso,pwd) VALUES(:sql_req_name,:sql_req_email,:sql_req_password)');
+            //liés les info utilisateur à celle de la requête
+            $this->h_db->bind(':sql_req_name', $data['name']);
+            $this->h_db->bind(':sql_req_email', $data['email']);
+            $this->h_db->bind(':sql_req_password', $data['password']);
+            //execution de la requête:w
+            
+            if($this->h_db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception $e){
+            die('Erreur sauvegarde utilisateur:'.$e->getMessage());
+        }
+    }
     public function findUserByEmail($i_email){
         //préparation de la requête
         $this->h_db ->query("SELECT * FROM users WHERE email = :sql_req_email");
