@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col mt-5">
         <div class="card card-body bg-light mt-5">
-            <h1 class="text-center"><?= $data['title'] ?></h1>
+            <h1 class="text-center">Inscription</h1>
 
             <form action="<?= URLROOT ?>/ursers/register" method="post">
                 <div class="form-group">
