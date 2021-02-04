@@ -39,10 +39,20 @@ class Users extends Controller{
             if(empty($data['confirm_password'])){
 
                 $data['err_confirm_password'] = "confirmation password vide, merci de compéter";
-
+            }
+            else{
                 if($data['password'] != $data['confirm_password']){
-                    $data['err_confirm_password'] = "les mot de passe de sont pas identique";
+                    $data['err_confirm_password'] = "les mots de passe de sont pas identiques";
                 }
+            }
+            if(empty($data['err_name']) && empty($data['err_email']) &&empty($data['err_password'])&&empty($data['err_confirm_password'])){
+                //pas d'erreur après control
+
+                //chiffrage mdp et validation formulaire
+            }
+            else{
+                //affichage de la vue avec les erreurs
+                $this->view('users\register', $data);
             }
        } 
        else{
