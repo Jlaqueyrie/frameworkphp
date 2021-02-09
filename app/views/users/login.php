@@ -1,16 +1,18 @@
-<?php require APPROOT . '\views\inc\header.php'; ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
 <div class="row">
     <div class="col mt-5">
         <div class="card card-body bg-light mt-5">
             <h1 class="text-center">Connexion</h1>
 
-            <form action="<?= URLROOT ?>/ursers/register" method="post">
+            <form action="<?php echo URLROOT ?>users/login" method="POST">
                 <div class="form-group">
-                    <input type="text" class="form-control mb-2 <?php echo(!empty($data['err_email'])) ? 'is_invalid' : '';?>" value ="<?php echo $data['email']?>" name="f_u_email" id="f_reg_nom" placeholder="Votre email" required>
+                    <label>Votre email<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_email'])) ? 'is-invalid' :'';?>" name="f_u_email" value="<?php echo $data['email']?>">
                     <span class="invalid-feedback"><?php echo $data['err_email']?></span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control mb-2 <?php echo(!empty($data['err_password'])) ? 'is_invalid' : '';?>" value ="<?php echo $data['password']?>" name="f_u_password_conf" id="f_reg_nom" placeholder="Votre mot de pass" required>
+                    <label>Votre mot de passe<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo(!empty($data['err_password'])) ? 'is-invalid' :'';?>" name="f_u_password" value="<?php echo $data['password']?>">
                     <span class="invalid-feedback"><?php echo $data['err_password']?></span>
                 </div>
                 <div class="row">
@@ -25,4 +27,4 @@
         </div>
     </div>
 </div>
-<?php require APPROOT . '\views\inc\footer.php'; ?>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

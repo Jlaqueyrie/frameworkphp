@@ -9,10 +9,8 @@ class Users extends Controller{
         //nettoyage donnée $_POST
         
         //control si le formulaire a appelé la méthode post
-       if($_SERVER['REQUEST_METHOD'] == 'POST'){
-       //validation formulaire    
-        // var_dump($_POST);
-        // die('debug');
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        //validation formulaire    
         $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
            $data=[
@@ -45,9 +43,10 @@ class Users extends Controller{
             elseif(strlen($data['password']) < 8){
                 $data['err_password'] = "password doit être supérieur à 8 caractères";
             }
+
             if(empty($data['confirm_password'])){
 
-                $data['err_confirm_password'] = "confirmation password vide, merci de compéter";
+                $data['err_confirm_password'] = "confirmation password vide, merci de compléter";
             }
             else{
                 if($data['password'] != $data['confirm_password']){
@@ -56,16 +55,6 @@ class Users extends Controller{
             }
             if(empty($data['err_name']) && empty($data['err_email']) &&empty($data['err_password'])&&empty($data['err_confirm_password'])){
                 //pas d'erreur après control
-                $data=[
-               'name'=>'',
-               'email'=>'',
-               'password'=> '',
-               'confirm_password'=>'',
-               'err_name'=>'',
-               'err_email'=>'',
-               'err_password'=> '',
-               'err_confirm_password'=>'',
-                ];
                 //chiffrage mdp et validation formulaire
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                 if($this->userModel->setUserDataInBdd($data)){
@@ -96,35 +85,49 @@ class Users extends Controller{
         $this->view('users\register', $data);
     }
     public function login(){
-        $_POST = filter_input_array(FILTER_SANITIZE_STRING);
         //control si le formulaire a appelé la méthode post
-       if($_SERVER['REQUEST_METHOD'] == 'POST'){
-       //validation formulaire    
-           $data=[
-               'email'=>trim($_POST['f_u_email']),
-               'password'=>trim($_POST['f_u_password']),
-               'err_email'=>'',
-               'err_password'=> ''];
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //validation formulaire    
+            $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $data=[
+            'email'=>trim($_POST['f_u_email']),
+            'password'=>trim($_POST['f_u_password']),
+            'err_email'=>'',
+            'err_password'=>''];
 
             //validation champ vide
             if(empty($data['email'])){
-
                 $data['err_email'] = "comptéter l'email";
             }
             if(empty($data['password'])){
-
                 $data['err_password'] = "password vide, merci de compéter";
             }
-            //gestion des erreurs
-            if(empty($data['err_email'])&&empty($data['err_password'])){
-
+            //verification email !!continue l'execution même si $data['email'] est vide
+            if($this->userModel->findUserByEmail($data['email'])){
+                
             }
             else{
-                $this->view('users\login', $data);
+                $data['err_email']= "adresse email non enregistré en base de donnée";
+            }
+
+            //gestion des erreurs
+            if(empty($data['err_email'])&&empty($data['err_password'])){
+                $isCredentialValid = $this->userModel->checkCredential($data['email'], $data['password']);
+                if($isCredentialValid){
+                        $this->createUserSession($isUserLoggedIn);
+                        $this->view('user/login', $data);
+                    }
+                else{
+                    $data['err_password'] = 'mdp incorect';
+                    $this->view('users/login', $data);
+                }
+            }
+            else{
+                $this->view('users/login', $data);
 
             }
-       } 
-       else{
+        }
+        else{
            //donnée formulaire
            $data=[
                'email'=>'',
@@ -132,8 +135,31 @@ class Users extends Controller{
                'err_email'=>'',
                'err_password'=> '',
            ];
-        //charement de la vue
-            $this->view('users\login', $data);
+        //chargement de la vue
+            $this->view('users/login', $data);
        }
+    }
+    //méthode de création de la session
+    public function createUserSession($user){
+        $_SESSION['user_id'] = $user -> id;
+        $_SESSION['user_email'] = $user -> email;
+        $_SESSION['user_name'] = $user -> name;
+        redirect('pages/index');
+    }
+    public function logout(){
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_name']);
+        session_destroy();
+        redirect('users/login');
+    }
+
+    public function isUserLoggedIn(){
+        if(isset($_SESSION['user_id'])){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
