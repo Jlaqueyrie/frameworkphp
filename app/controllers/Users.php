@@ -114,8 +114,8 @@ class Users extends Controller{
             if(empty($data['err_email'])&&empty($data['err_password'])){
                 $isCredentialValid = $this->userModel->checkCredential($data['email'], $data['password']);
                 if($isCredentialValid){
-                        $this->createUserSession($isUserLoggedIn);
-                        $this->view('user/login', $data);
+                    $this->createUserSession($isCredentialValid);
+                    $this->view('user/login', $data);
                     }
                 else{
                     $data['err_password'] = 'mdp incorect';
@@ -124,7 +124,6 @@ class Users extends Controller{
             }
             else{
                 $this->view('users/login', $data);
-
             }
         }
         else{
@@ -140,10 +139,10 @@ class Users extends Controller{
        }
     }
     //méthode de création de la session
-    public function createUserSession($user){
-        $_SESSION['user_id'] = $user -> id;
-        $_SESSION['user_email'] = $user -> email;
-        $_SESSION['user_name'] = $user -> name;
+    public function createUserSession($obj_user){
+        $_SESSION['user_id'] = $obj_user -> id;
+        $_SESSION['user_email'] = $obj_user -> email;
+        $_SESSION['user_name'] = $obj_user -> name;
         redirect('pages/index');
     }
     public function logout(){
