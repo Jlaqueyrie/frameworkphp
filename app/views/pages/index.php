@@ -1,3 +1,7 @@
 <?php require APPROOT.'\views\inc\header.php'?>
-<h1><?php printf($data['title'])?></h1>
+<div class="row">
+    <div class="col-md-12 border">
+        <h1 class="text-center"> lorme ipsum test</h1>
+    </div>
+</div>
 <?php require APPROOT.'\views\inc\footer.php'?>

@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <div class="row">
-    <div class="col mt-5">
-        <div class="card card-body bg-light mt-5">
+    <div class="col">
+        <div class="card card-body bg-light">
             <h1 class="text-center">Connexion</h1>
 
             <form action="<?php echo URLROOT ?>users/login" method="POST">
