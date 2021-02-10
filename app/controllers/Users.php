@@ -160,7 +160,7 @@ class Users extends Controller{
         $_SESSION['user_id'] = $obj_user -> id;
         $_SESSION['user_email'] = $obj_user -> email;
         $_SESSION['user_name'] = $obj_user -> name;
-        redirect('pages/index');
+        redirect('posts');
     }
     public function logout(){
         unset($_SESSION['user_id']);
@@ -168,14 +168,5 @@ class Users extends Controller{
         unset($_SESSION['user_name']);
         session_destroy();
         redirect('users/login');
-    }
-
-    public function isUserLoggedIn(){
-        if(isset($_SESSION['user_id'])){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 }
