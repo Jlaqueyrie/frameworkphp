@@ -33,6 +33,8 @@ class Database{
 
         try{
             $this->dbh = new PDO($dns, $this->user, '', $options);
+            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         }
         catch(PDOException $e){
             $this->error = $e ->getMessage();
@@ -49,7 +51,6 @@ class Database{
             switch (true){
 
                 case is_int($value):
-
                     $type = PDO::PARAM_INT;
                     break;
 
@@ -81,7 +82,6 @@ class Database{
     //retourne une suel ligne du jeux
     public function getSingleData(){
         $this->execute();
-
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
     //retourne un nombre de ligne

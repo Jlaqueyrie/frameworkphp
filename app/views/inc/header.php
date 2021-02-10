@@ -15,6 +15,13 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="<?= URLROOT?>css/styles.css" rel="stylesheet" />
+        <script language="JavaScript">
+            function enable_input(status)
+            {
+            status=!status;	
+                document.f1.other_text.disabled = status;
+            }
+        </script>
     </head>
     <body id="page-top">
         <!-- Navigation-->

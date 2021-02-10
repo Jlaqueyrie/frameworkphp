@@ -11,6 +11,11 @@
                     <span class="invalid-feedback"><?php echo $data['err_name']?></span>
                 </div>
                 <div class="form-group">
+                    <label>Votre pseudo<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_pseudo'])) ? 'is-invalid' :'';?>" name="f_u_pseudo" value="<?php echo $data['pseudo']?>">
+                    <span class="invalid-feedback"><?php echo $data['err_pseudo']?></span>
+                </div>
+                <div class="form-group">
                     <label>Votre email<sup>*</sup></label>
                     <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_email'])) ? 'is-invalid' :'';?>" name="f_u_email" value="<?php echo $data['email']?>">
                     <span class="invalid-feedback"><?php echo $data['err_email']?></span>

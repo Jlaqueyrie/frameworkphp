@@ -12,9 +12,10 @@ class User{
     public function setUserDataInBdd($data){
         //préparation de la requête
         try{
-            $this->h_db->query('INSERT INTO users(name,email,password) VALUES(:sql_req_name,:sql_req_email,:sql_req_password)');
+            $this->h_db->query('INSERT INTO users(name,pseudo,email,password) VALUES(:sql_req_name,:sql_req_pseudo,:sql_req_email,:sql_req_password)');
             //liés les info utilisateur à celle de la requête
             $this->h_db->bind(':sql_req_name', $data['name']);
+            $this->h_db->bind(':sql_req_pseudo', $data['pseudo']);
             $this->h_db->bind(':sql_req_email', $data['email']);
             $this->h_db->bind(':sql_req_password', $data['password']);
             //execution de la requête:w
@@ -30,11 +31,20 @@ class User{
             die('Erreur sauvegarde utilisateur:'.$e->getMessage());
         }
     }
-    public function findUserByEmail($i_email){
-        //préparation de la requête
-        $this->h_db ->query("SELECT * FROM users WHERE email = :sql_req_email");
+    public function findUserById($i_id, $auth_type){
+        //préparation de la requête en fonction du type d'identifiant passé
+        switch ($auth_type){
+            case "Email":
+                // die('Email');
+                $this->h_db ->query("SELECT * FROM users WHERE email = :sql_req_id");
+                break;
+            case "Pseudo":
+                // die('Pseudo');
+                $this->h_db ->query("SELECT * FROM users WHERE pseudo = :sql_req_id");
+                break;
+        }
         //bind des entrées
-        $this->h_db->bind(':sql_req_email',$i_email);
+        $this->h_db->bind(':sql_req_id',$i_id);
         //execution de la requête et stockage de la retournées
         $row = $this->h_db->getSingleData();
         //contage du nombre de ligne
@@ -46,11 +56,18 @@ class User{
         }
     }
 
-    public function checkCredential($u_email, $u_password){
+    public function checkCredential($u_id, $auth_type, $u_password){
        //préparation requête
-       $this->h_db->query('SELECT * FROM users WHERE email=:sql_req_email');
+        switch ($auth_type){
+            case "Email":
+            $this->h_db->query('SELECT * FROM users WHERE email=:sql_req_id');
+            break;
+        case "Pseudo":
+            $this->h_db->query('SELECT * FROM users WHERE pseudo=:sql_req_id');
+            break;
+        }
        //liaison des paramètres
-       $this->h_db->bind(':sql_req_email', $u_email);
+       $this->h_db->bind(':sql_req_id', $u_id);
        //execution
        $row = $this->h_db->getSingleData();
        //déchifrage du mot de passe

@@ -16,10 +16,12 @@ class Users extends Controller{
            $data=[
                'name' => trim($_POST['f_u_name']),
                'email'=>trim($_POST['f_u_email']),
+               'pseudo'=>trim($_POST['f_u_pseudo']),
                'password'=>trim($_POST['f_u_password']),
                'confirm_password'=>trim($_POST['f_u_password_conf']),
                'err_name'=>'',
                'err_email'=>'',
+               'err_pseudo'=>'',
                'err_password'=> '',
                'err_confirm_password'=>''];
 
@@ -27,13 +29,26 @@ class Users extends Controller{
             if(empty($data['name'])){
                 $data['err_name'] = "compléter le nom";
             }
+            if(empty($data['pseudo'])){
+
+                $data['err_pseudo'] = "veuillez remplir le champ pseudo";
+            }
             if(empty($data['email'])){
 
                 $data['err_email'] = "comptéter l'email";
             }
             else{
-                if($this->userModel -> findUserByEmail($data['email'])){
+                if($this->userModel -> findUserById($data['email'], "Email")){
                     $data['err_email'] = "adresse email déjà utilisé";
+                }
+            }
+            if(empty($data['pseudo'])){
+
+                $data['err_pseudo'] = "veuillez remplir le champ pseudo";
+            }
+            else{
+                if($this->userModel -> findUserById($data['pseudo'], "Pseudo")){
+                    $data['err_email'] = "adresse pseudo déjà utilisé";
                 }
             }
             if(empty($data['password'])){
@@ -53,7 +68,7 @@ class Users extends Controller{
                     $data['err_confirm_password'] = "les mots de passe de sont pas identiques";
                 }
             }
-            if(empty($data['err_name']) && empty($data['err_email']) &&empty($data['err_password'])&&empty($data['err_confirm_password'])){
+            if(empty($data['err_name']) && empty($data['err_email']) && empty($data['err_pseudo']) && empty($data['err_password']) && empty($data['err_confirm_password'])){
                 //pas d'erreur après control
                 //chiffrage mdp et validation formulaire
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -75,6 +90,7 @@ class Users extends Controller{
                'name'=>'',
                'email'=>'',
                'password'=> '',
+               'pseudo'=>'',
                'confirm_password'=>'',
                'err_name'=>'',
                'err_email'=>'',
@@ -90,29 +106,30 @@ class Users extends Controller{
             //validation formulaire    
             $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             $data=[
-            'email'=>trim($_POST['f_u_email']),
+            'auth_type'=>$_POST['f_u_auth'],
+            'id'=>trim($_POST['f_u_id']),
             'password'=>trim($_POST['f_u_password']),
-            'err_email'=>'',
+            'err_id'=>'',
             'err_password'=>''];
 
             //validation champ vide
-            if(empty($data['email'])){
-                $data['err_email'] = "comptéter l'email";
+            if(empty($data['id'])){
+                $data['err_id'] = "comptéter l'identifiant";
             }
             if(empty($data['password'])){
                 $data['err_password'] = "password vide, merci de compéter";
             }
-            //verification email !!continue l'execution même si $data['email'] est vide
-            if($this->userModel->findUserByEmail($data['email'])){
+            //verification de l'identifiant en base de donnée !!
+            if($this->userModel->findUserById($data['id'], $data['auth_type'])){
                 
             }
             else{
-                $data['err_email']= "adresse email non enregistré en base de donnée";
+                $data['err_id']= "identifiant non enregistré en base de donnée";
             }
 
             //gestion des erreurs
-            if(empty($data['err_email'])&&empty($data['err_password'])){
-                $isCredentialValid = $this->userModel->checkCredential($data['email'], $data['password']);
+            if(empty($data['err_id'])&&empty($data['err_password'])){
+                $isCredentialValid = $this->userModel->checkCredential($data['id'],$data['auth_type'], $data['password']);
                 if($isCredentialValid){
                     $this->createUserSession($isCredentialValid);
                     $this->view('user/login', $data);
@@ -129,7 +146,7 @@ class Users extends Controller{
         else{
            //donnée formulaire
            $data=[
-               'email'=>'',
+               'id'=>'',
                'password'=> '',
                'err_email'=>'',
                'err_password'=> '',

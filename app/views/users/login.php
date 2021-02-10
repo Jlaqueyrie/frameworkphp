@@ -5,10 +5,18 @@
             <h1 class="text-center">Connexion</h1>
 
             <form action="<?php echo URLROOT ?>users/login" method="POST">
+                <label</label>
                 <div class="form-group">
-                    <label>Votre email<sup>*</sup></label>
-                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_email'])) ? 'is-invalid' :'';?>" name="f_u_email" value="<?php echo $data['email']?>">
-                    <span class="invalid-feedback"><?php echo $data['err_email']?></span>
+                    <label for="sel1">Authentification par :</label>
+                    <select class="form-control" name="f_u_auth">
+                        <option value="Email">Email</option>
+                        <option value="Pseudo">Pseudo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Votre identifiant<sup>*</sup></label>
+                    <input type="text" class="form-control mb-2 <?php echo (!empty($data['err_id'])) ? 'is-invalid' :'';?>" name="f_u_id" value="<?php echo $data['id']?>">
+                    <span class="invalid-feedback"><?php echo $data['err_id']?></span>
                 </div>
                 <div class="form-group">
                     <label>Votre mot de passe<sup>*</sup></label>
@@ -20,7 +28,7 @@
                         <input type="submit" class="btn btn-success btn-block" value = "Se connecter">
                     </div>
                     <div class="col">
-                        <a href="<?= URLROOT?>users/register" class="btn btn-light btn-block">Pas encore inscrit, inscrivez vous</a>
+                        <a href="<?= URLROOT?>users/register" class="btn btn-info btn-block">inscrivez vous</a>
                     </div>
                 </div>
             </form>
