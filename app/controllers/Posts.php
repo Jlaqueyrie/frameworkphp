@@ -8,7 +8,7 @@ class Posts extends Controller{
         }
         else{
             //instanciation du modèle "post" pour la gestion de la com bdd pour le controler Posts
-            $this->userModel = $this->model('post');
+            $this->postModel = $this->model('Post');
         }
     }
 
@@ -57,8 +57,12 @@ class Posts extends Controller{
                 "author" => "",
                 "articleContent" =>"" ,
                 "err_title" => "",
-                "err_content"=>""
+                "err_articleContent"=>""
             ];
         }
+    //affichage de la vue
+    var_dump($dataPost['err_articleContent']);
+    $this->view('posts\addpost', $dataPost);
+    die("debug");
     }
 }
