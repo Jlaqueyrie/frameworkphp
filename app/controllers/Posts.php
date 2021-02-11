@@ -13,11 +13,15 @@ class Posts extends Controller{
     }
 
     public function index(){
-        $data = [];
 
+        //récupération des informations des articles
+        $listPost = $this->postModel->getPostDataFromBdd();
+        $data = [
+            "posts"=>$listPost
+        ];
         //chargement page
         $this->view('posts/index', $data);
-        
+        die('debuf');
     }
 
     public function addPost(){

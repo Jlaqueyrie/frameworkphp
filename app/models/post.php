@@ -31,4 +31,10 @@ class Post {
         }
 
     }
+    public function getPostDataFrombdd(){
+        $this->conndb->query('SELECT * FROM posts');
+        $resultPosts = $this->conndb->getDataSet();
+
+        return $resultPosts;
+    }
 }
