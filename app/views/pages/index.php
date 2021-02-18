@@ -1,9 +1,16 @@
 <?php require APPROOT.'\views\inc\header.php'?>
-<section class="page-section cta">
+  <section class="page-section cta">
     <div class="container">
-        <div class="intro col-md-6 offset-md-3">
-            <h2 class="section-heading mb-4"><?php printf($data['title'])?></h2>
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <div class="cta-inner text-center rounded">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-upper">Bienvenue sur la marché</span>
+              <span class="section-heading-lower">à vous</span>
+            </h2>
+            <p class="mb-0"><?php printf($data['title'])?></p>
+          </div>
         </div>
+      </div>
     </div>
-</section>
 <?php require APPROOT.'\views\inc\footer.php'?>

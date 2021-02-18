@@ -106,6 +106,9 @@ class Users extends Controller{
     }
     public function login(){
         //control si le formulaire a appelé la méthode post
+        if($this->isLoggedIn()){
+            redirect('page/index');
+        }
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //validation formulaire    
             $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);

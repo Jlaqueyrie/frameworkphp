@@ -47,10 +47,10 @@
             <a class="nav-link text-uppercase text-expanded" href="about.html">A propos de</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="products.html">Produits</a>
+            <a class="nav-link text-uppercase text-expanded" href="products.h">Produits</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="store.html">Magasin</a>
+            <a class="nav-link text-uppercase text-expanded" href="<?= URLROOT?>/products">Magasin</a>
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li class="nav-item px-lg-4">
