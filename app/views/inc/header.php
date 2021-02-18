@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Business Casual - Start Bootstrap Theme</title>
+  <title><?php echo SITENAME?></title>
 
   <!-- Bootstrap core CSS -->
   <link href="<?php echo URLROOT?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,8 +25,8 @@
 <body>
 
   <h1 class="site-heading text-center text-white d-none d-lg-block">
-    <span class="site-heading-upper text-primary mb-3">A Free Bootstrap 4 Business Theme</span>
-    <span class="site-heading-lower">Business Casual</span>
+    <span class="site-heading-upper text-primary mb-3">Ma boutique en ligne</span>
+    <span class="site-heading-lower"> Test formation php</span>
   </h1>
 
   <!-- Navigation -->
@@ -40,7 +40,6 @@
         <ul class="navbar-nav mx-auto">
           <li class="nav-item active px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="<?= URLROOT?>">Accueil
-
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -55,8 +54,13 @@
           </li>
           <?php if(isset($_SESSION['user_id'])) : ?>
             <li class="nav-item px-lg-4">
-                <a href="<?= URLROOT?>users/author" class="nav-link text-uppercase text-expanded"> Bienvenu <?php echo $_SESSION['user_name'];?></a>
+                <a href="<?= URLROOT?>users/logout" class="nav-link text-uppercase text-expanded">Déconnexion</a>
             </li>
+            <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role']== 1): ?>
+              <li class="nav-item px-lg-4">
+                  <a href="<?= URLROOT?>admin" class="nav-link text-uppercase text-expanded">Administration</a>
+              </li>
+            <?php endif;?>
           <?php else: ?>
             <li class="nav-item px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="<?= URLROOT?>users/register">S'enregistrer</a>

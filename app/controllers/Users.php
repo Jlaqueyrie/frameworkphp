@@ -164,12 +164,30 @@ class Users extends Controller{
         $_SESSION['user_id'] = $obj_user -> id;
         $_SESSION['user_email'] = $obj_user -> email;
         $_SESSION['user_name'] = $obj_user -> name;
-        redirect('posts');
+        $_SESSION['user_role'] = $obj_user->id_role;
+        redirect('index.php');
+    }
+    public function isLoggedIn(){
+        if(isset($_SESSION['user_id'])){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public function isAdmin(){
+        if(isset($_SESSION['user_role']) AND $_SESSION['user_role']==1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public function logout(){
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_name']);
+        unset($_SESSION['user_role']);
         session_destroy();
         redirect('users/login');
     }

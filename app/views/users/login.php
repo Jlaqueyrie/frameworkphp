@@ -4,7 +4,7 @@
     <div class="container">
         <div class="cta-inner text-center rounded">
             <form action="<?php echo URLROOT ?>users/login" method="POST">
-                <label< /label>
+                <label></label>
                     <div class="form-group">
                         <label for="sel1">Authentification par :</label>
                         <select class="form-control" name="f_u_auth">
