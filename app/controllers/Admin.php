@@ -21,14 +21,34 @@ class Admin extends Controller{
      }
 
      public function products(){
-          
-        $products = $this->productModel->getProduct();
+         if(isset($_POST['name'])){
+             $date = new DateTime();
+             $datas=[
+                 'name'=>$_POST['name'],
+                 'description'=>$_POST['description'],
+                 'price_vat'=>$_POST['price_wo_vat']*1.20,
+                 'price_wo_vat'=>$_POST['price_wo_vat'],
+                 'created_at'=>$date->format('y-m-d')
+             ];
+         } 
+         if(isset($_FILES['img'])){
+            $uploadDir = 'img/products/';
+            $uploadFiles = $uploadDir.basename($_FILES['img']['name']);
+            if(move_uploaded_file($_FILES['img']['tmp_name'],$uploadFiles)){
+                $datas['img']=$_FILES['img']['name'];
+            }
+            $this->productModel->add($datas);
+            redirect('admin/products');
+         }
+        
+        $products = $this->productModel->getProducts();
 
         $data = [
              'title'=>'gestion produit',
              'products'=>$products
          ];
 
-         $this->view('admin/products', $data);
+         $this->view('admin/products/index', $data);
+
      }
 }
